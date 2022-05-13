@@ -1,5 +1,10 @@
 # SE2_Project
 
+## Projektmitglieder
+- Kainz Fabian
+- Mayr Niklas
+- Mitic Dalibor
+
 ## Ziel
 
 Das Projektziel ist es, eine Auto-ML Applikation/Schnittstelle im Hinblick auf Time-Series-Problemstellungen für NON-Data Scientist zu erstellen. Der Zweck ist es, dass der User Erkenntnisse über die Prediction der gewählten Time-Series vom Turbofan-Datensatz gewinnt.
