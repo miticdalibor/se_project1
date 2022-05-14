@@ -12,6 +12,7 @@ install-job:
 
 unit-test-job:
   stage: test
+  script:
     - echo "TESTING CODE:"
     - poetry run pytest --junitxml=report.xml
   artifacts:
