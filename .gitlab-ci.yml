@@ -3,16 +3,19 @@ stages:
   - test
   - deploy
 
-install-job:
+before_script:
   stage: build
   script:
     - echo "INSTALLING DEPENDENCIES:"
     - pip install poetry
-    - poetry install 
+    - poetry install
 
-unit-test-job:
+test-job:
   stage: test
   script:
+    - echo "INSTALLING DEPENDENCIES:"
+    - pip install poetry
+    - poetry install
     - echo "TESTING CODE:"
     - poetry run pytest --junitxml=report.xml
   artifacts:
@@ -20,11 +23,12 @@ unit-test-job:
     reports:
       junit: report.xml
 
-lint-test-job:
+lint-job:
   stage: test
   script:
     - echo "Linting code... This will take about 10 seconds."
-    - sleep 10
+    - flake8
+    - find . -type f -name "*.py" | xargs pylint
     - echo "No lint issues found."
 
 deploy-job:
@@ -35,9 +39,6 @@ deploy-job:
 
 pages:
   script:
-    - echo "INSTALLING DEPENDENCIES:"
-    - pip install poetry
-    - poetry install
     - echo "DOCUMENTATION"
     - poetry run pdoc src --html -o public
     
