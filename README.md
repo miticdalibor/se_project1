@@ -1,24 +1,47 @@
 # Frunch_Infinity
 
-## Projektmitglieder
+## Project attendees
 - Kainz Fabian
 - Mayr Niklas
 - Mitic Dalibor
 
-## Ziel
+## Goal
 
-Das Projektziel ist es, eine Auto-ML Applikation/Schnittstelle im Hinblick auf Time-Series-Problemstellungen für NON-Data Scientist zu erstellen. Der Zweck ist es, dass der User Erkenntnisse über die Prediction der gewählten Time-Series vom Turbofan-Datensatz gewinnt.
+The goal of the project: Frunch_Infinity is, to develope an Auto-ML application with interfaces for time-series-tasks. By using this app a Non-Data Scientist can select a dataset that contains time-series via the app and compare the output of different models. Therefore, the user can get first insights if the data which has been used is usable or not. The vision of this project is to falsify the No Free Lunch Theorem.
+
 
 ## Brainstorm
 
-- Datengrundlage: Turbofan 
-- aufbauen einer Pipeline (anfangs 2-Steps: Skalieren, NA-Werte löschen) -> inkl. CI/CD
-- Verwendung von PyCaret für Regression, da diese bereits 17 unterschiedliche Algorithmen enthält
-- Datensatz soll mithilfe der Applikation importiert werden können
-- Aufbau einer Schnittstelle zwischen der PyCaret-Ausgabe und der Applikation(StreamLit, PlotlyDash t.b.d)
+- data set: Turbofan 
+- set-up a pipeline (at the beginning start with 2 steps (e.g. scaling, delete NaN) -> incl. CI/CD
+- PyCaret could be used, as it has 17 different algorithms that it is using 
+- Data set should be selected via the application 
+- set-up an interface between PyCaret-Output and the application 
+- streamlit, plotlydash should be used for the application 
 
 ## Requirements
-- 
+- Functional:
+ - The frunch_infinity application must be compatible with the turbofan dataset.
+ - If the user is starting app, the app has to show a list of available data sets from the ./data folder of the repository.
+ - When the user is running the free lunch function via the app, the pipeline must preprocess the selected data prior to the traning of the modell.
+ - When the pipeline gets data, it has to remove all missing values.
+ - When the pipeline gets data, it has to scale the data.
+ - When the data finishes the preprocessing via the pipeline, different models should be used to be trained on the for later comparison of the models.
+
+- Technologisch
+
+- Quality of Service
+tbd
+
+- User Interface:
+ - If the user starts the app, they have to be able to select a data set from an available list.
+ - When the models finish the training a summary table must be created showing all results of the models.
+ - When the user is starting the frunch function and any errors occur from the code, those erros should be displayed via the app to the user for debugging.
+
+- Anforderungen mit Bezug zu anderen Ergebnissen 
+
+- Anforderungen zu notwendigen Aktivitäten 
+
 
 
 
