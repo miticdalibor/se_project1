@@ -1,12 +1,8 @@
-from re import S
-from turtle import st
-from unicodedata import category
-from xml.etree.ElementTree import PI
+
 import pandas as pd
 import numpy as np
 from sklearn.pipeline import Pipeline, FeatureUnion
 from sklearn.impute import SimpleImputer
-from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.preprocessing import MinMaxScaler
 
 
@@ -63,13 +59,10 @@ class RemoveColumn:
 
 
 # Separate in X and y
-print(data.columns)
-data.drop([0,1,2,3,4], axis=1, inplace=True)
-
-sel_output = 5  # here the user can put the selected index, which feature should be used as output variable
-X = data.drop(sel_output, axis=1)
-y = data.iloc[:,sel_output]
-
+data.drop(np.arange(5), axis=1, inplace=True) # drop first 5 features, as they are categorical but stored as numerical
+SEL_OUTPUT = 5  # user can put the selected index, which feature should be used as output variable
+X = data.drop(SEL_OUTPUT, axis=1)
+y = data.iloc[:,SEL_OUTPUT]
 
 cat_pipe = Pipeline(steps=[
     ("selector", FeatureSelector(use_numbers=False)),
@@ -89,20 +82,8 @@ union = FeatureUnion(transformer_list=[
     ("non_num_pipe", cat_pipe)
 ])
 
-#print(data.iloc[:,0].value_counts())
-#print(data.iloc[:,0:5].dtypes)
-#data.iloc[:,0].astype('category')
-#print(data.iloc[:,1].dtypes)
 
 union.fit_transform(X)
 
-
-
-
 # questions:
 # what to do with the cycle time? 
-
-
-
-
-
