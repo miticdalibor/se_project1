@@ -11,9 +11,6 @@ before_script:
 test-job:
   stage: test
   script:
-    - echo "INSTALLING DEPENDENCIES:"
-    - pip install poetry
-    - poetry install
     - echo "TESTING CODE:"
     - poetry run pytest --junitxml=report.xml
   artifacts:
@@ -38,9 +35,9 @@ deploy-job:
 pages:
   script:
     - echo "DOCUMENTATION"
-    - poetry run pdoc src --html -o public
+    - poetry run pdoc src --html -o docs
     
   needs: []
   artifacts:
     paths:
-      - public
+      - docs
