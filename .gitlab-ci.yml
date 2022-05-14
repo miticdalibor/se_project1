@@ -4,11 +4,9 @@ stages:
   - deploy
 
 before_script:
-  stage: build
-  script:
-    - echo "INSTALLING DEPENDENCIES:"
-    - pip install poetry
-    - poetry install
+  - echo "INSTALLING DEPENDENCIES:" 
+  - pip install poetry
+  - poetry install
 
 test-job:
   stage: test
