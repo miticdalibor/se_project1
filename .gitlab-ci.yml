@@ -1,0 +1,46 @@
+stages:
+  - build
+  - test
+  - deploy
+
+install-job:
+  stage: build
+  script:
+    - echo "INSTALLING DEPENDENCIES:"
+    - pip install poetry
+    - poetry install 
+
+unit-test-job:
+  stage: test
+    - echo "TESTING CODE:"
+    - poetry run pytest --junitxml=report.xml
+  artifacts:
+    when: always
+    reports:
+      junit: report.xml
+
+lint-test-job:
+  stage: test
+  script:
+    - echo "Linting code... This will take about 10 seconds."
+    - sleep 10
+    - echo "No lint issues found."
+
+deploy-job:
+  stage: deploy
+  script:
+    - echo "Deploying application..."
+    - echo "Application successfully deployed."
+
+pages:
+  script:
+    - echo "INSTALLING DEPENDENCIES:"
+    - pip install poetry
+    - poetry install
+    - echo "DOCUMENTATION"
+    - poetry run pdoc src --html -o public
+    
+  needs: []
+  artifacts:
+    paths:
+      - public
