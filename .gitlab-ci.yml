@@ -1,0 +1,35 @@
+stages:
+  - build
+  - test
+  - deploy
+
+before_script:
+  - echo "INSTALLING DEPENDENCIES:" 
+  - pip install poetry
+  - poetry install
+
+test-job:
+  stage: test
+  script:
+    - echo "TESTING CODE:"
+    - poetry run pytest --junitxml=report.xml
+  artifacts:
+    when: always
+    reports:
+      junit: report.xml
+
+deploy-job:
+  stage: deploy
+  script:
+    - echo "Deploying application..."
+    - echo "Application successfully deployed."
+
+pages:
+  script:
+    - echo "DOCUMENTATION"
+    - poetry run pdoc src --html -o docs
+    
+  needs: []
+  artifacts:
+    paths:
+      - docs

@@ -11,6 +11,9 @@ hydra-core = "^1.1.1"
 pdoc3 = "^0.10.0"
 notebook = "^6.4.10"
 pycaret = "^2.3.10"
+Hydra = "^2.5"
+pandas = "^1.4.2"
+flake8 = "^4.0.1"
 
 
 [tool.poetry.dev-dependencies]
