@@ -18,14 +18,6 @@ test-job:
     reports:
       junit: report.xml
 
-lint-job:
-  stage: test
-  script:
-    - echo "Linting code... This will take about 10 seconds."
-    - flake8
-    - find . -type f -name "*.py" | xargs pylint
-    - echo "No lint issues found."
-
 deploy-job:
   stage: deploy
   script:
