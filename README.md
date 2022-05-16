@@ -53,6 +53,11 @@ tbd
 * [DVC](https://dvc.org/): Data version control - [article](https://towardsdatascience.com/introduction-to-dvc-data-version-control-tool-for-machine-learning-projects-7cb49c229fe0)
 * [pdoc](https://github.com/pdoc3/pdoc): Automatically create an API documentation for your project
 
+## Sprint 1 Backlog
+
+![](pics/Backlog_Sprint_1.png)
+
+
 ## Project structure
 ```bash
 .
