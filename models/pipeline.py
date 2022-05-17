@@ -1,15 +1,17 @@
 
 import pandas as pd
 import numpy as np
+
 from sklearn.pipeline import Pipeline, FeatureUnion
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import MinMaxScaler,OrdinalEncoder
 from sklearn.compose import ColumnTransformer
+
 from sklearn.model_selection import train_test_split
 
 
 data = pd.read_csv('./data/raw/train_FD001.txt', sep=' ', header=None)
-
+print(data)
 class RemoveColumn:
     ''' This class evaluates all columns separately if the whole column consists missing values and removes the whole column.'''
 
@@ -64,14 +66,14 @@ ALL_FEATURES = X.columns.values
 
 
 cat_pipe = Pipeline(steps=[
-    ('remove', RemoveColumn()),
+    ('remove_cat', RemoveColumn()),
     ('impute_cat', SimpleImputer(strategy='constant', fill_value=999)),
     ('encoder_cat', OrdinalEncoder()) # does not work well? 
     
 ])
 
 num_pipe = Pipeline(steps=[
-    ('remove', RemoveColumn()),
+    ('remove_num', RemoveColumn()),
     ('impute_num', SimpleImputer(strategy='constant', fill_value=0)),
     ('scaling', MinMaxScaler())
 ])
@@ -82,16 +84,13 @@ num_pipe = Pipeline(steps=[
 
 preprocessor = ColumnTransformer(
     transformers=[
-        ('num', num_pipe, SEL_NUM_FEATURES),
-        ('cat', cat_pipe, SEL_CAT_FEATURES)
+        ('cat', cat_pipe, SEL_CAT_FEATURES),
+        ('num', num_pipe, SEL_NUM_FEATURES)
     ]
 )
 
 test = preprocessor.fit_transform(X)
 
-o = pd.DataFrame(test,columns=X.columns[:25])
-print(o)
+print(pd.DataFrame(test,columns=X.columns[:25]))
 
-r=OrdinalEncoder()
-check = r.fit_transform(X[SEL_CAT_FEATURES].values)
-print(check)
+
