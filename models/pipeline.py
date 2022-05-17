@@ -20,7 +20,7 @@ class RemoveColumn:
         return self
     
     def transform(self, X, y=None):
-        assert type(X)==pd.DataFrame, "X must be of type pandas.DataFrame"
+        assert type(X)==pd.DataFrame, 'X must be of type pandas.DataFrame'
         
         for i in X.columns:          
             if X[i].isna().all() == True:
@@ -33,17 +33,17 @@ class RemoveColumn:
 
 # Define column headers, as the data should have column names
 preamble_headers = [
-    "unit_number",
-    "cycles",
-    "operational_setting_1",
-    "operational_setting_2",
-    "operational_setting_3"
+    'unit_number',
+    'cycles',
+    'operational_setting_1',
+    'operational_setting_2',
+    'operational_setting_3'
 ]
-sensor_headers = [f"sensor_{x}" for x in range(1, 24)]
+sensor_headers = [f'sensor_{x}' for x in range(1, 24)]
 
 # Combine column headers
 column_headers = preamble_headers + sensor_headers
-all_headers = column_headers + ["rul"]
+all_headers = column_headers + ['rul']
 
 # Assign the headers
 data.columns = column_headers
@@ -82,8 +82,8 @@ num_pipe = Pipeline(steps=[
 
 preprocessor = ColumnTransformer(
     transformers=[
-        ("num", num_pipe, SEL_NUM_FEATURES),
-        ("cat", cat_pipe, SEL_CAT_FEATURES)
+        ('num', num_pipe, SEL_NUM_FEATURES),
+        ('cat', cat_pipe, SEL_CAT_FEATURES)
     ]
 )
 
