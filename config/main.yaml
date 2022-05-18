@@ -1,10 +1,13 @@
 defaults:
-  - process: process1
-  - model: model1
+  - process: process
+  - model: model
+  - datasets:
+    - turbofan
+    - sampledata2
   - _self_
 
-raw: 
-  path: data/raw/sample.csv
+raw:
+  dir: data/raw/
 
 processed:
   dir: data/processed
