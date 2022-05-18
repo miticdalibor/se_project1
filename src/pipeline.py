@@ -94,4 +94,4 @@ test = preprocessor.fit_transform(X)
 print(pd.DataFrame(test,columns=X.columns[:25]))
 
 pd.DataFrame(test,columns=X.columns[:25]).to_csv('./data/processed/Input_prep1.csv') # write preprocessed input dataframe for modelling later
-y.to_csv('./data/processed/Output_prep1.csv')
+y.to_csv('./data/processed/Output_prep1.csv') # write output dataframe for modelling later
