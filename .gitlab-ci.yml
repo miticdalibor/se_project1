@@ -26,7 +26,7 @@ deploy-job:
 pages:
   script:
     - echo "DOCUMENTATION"
-    - poetry run pdoc src --html -o docs
+    - poetry run pdoc src --html -o docs --force
     
   needs: []
   artifacts:

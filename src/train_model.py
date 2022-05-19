@@ -9,7 +9,7 @@ from omegaconf import DictConfig
 from hydra.utils import to_absolute_path as abspath
 
 
-@hydra.main(config_path="../config", config_name="main")
+@hydra.main(version_base=None, config_path="../config", config_name="main")
 def train_model(config: DictConfig):
     """Function to train the model"""
 

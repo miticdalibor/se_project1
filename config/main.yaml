@@ -1,20 +1,21 @@
 defaults:
-  - process: process
+  - process: turbofan
   - model: model
-  - datasets:
-    - turbofan
-    - sampledata2
   - _self_
 
 raw:
   dir: data/raw/
+  name: train_FD001.txt
+  path: ${raw.dir}/${raw.name}
 
 processed:
-  dir: data/processed
-  name: processed.csv
-  path: ${processed.dir}/${processed.name}
+  dir: data/processed/
+  input_name: input_processed.csv
+  input_path: ${processed.dir}/${processed.input_name}
+  output_name: output_processed.csv
+  output_path: ${processed.dir}/${processed.output_name}
 
 final:
-  dir: data/final
+  dir: data/final/
   name: final.csv
   path: ${final.dir}/${final.name}
