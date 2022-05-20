@@ -28,17 +28,20 @@ The goal of the project: Frunch_Infinity is, to develope an Auto-ML application 
   - When the pipeline gets data, it has to scale the data.
   - When the data finishes the preprocessing via the pipeline, different models should be used to be trained for later comparison of the models.
 
-- Technologisch
+- Technological
 
 - Quality of Service
-tbd
+
 
 - User Interface:
- - If the user starts the app, they have to be able to select a data set from an available list.
- - When the models finish the training a summary table must be created showing all results of the models.
- - When the user is starting the frunch function and any errors occur from the code, those erros should be displayed via the app to the user for debugging. 
- - Anforderungen mit Bezug zu anderen Ergebnissen 
- - Anforderungen zu notwendigen Aktivitäten 
+  - If the user starts the app, they have to be able to select a data set from an available list.
+  - When the models finish the training a summary table must be created showing all results of the models.
+  - When the user is starting the free lunch function and any errors occur from the code, those erros should be displayed via the app to the user for debugging. 
+
+- Requirements related to other results
+
+- Requirements for activities
+
 
 
 
