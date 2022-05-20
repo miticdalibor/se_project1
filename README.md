@@ -21,12 +21,12 @@ The goal of the project: Frunch_Infinity is, to develope an Auto-ML application 
 
 ## Requirements
 - Functional:
- - The frunch_infinity application must be compatible with the turbofan dataset.
- - If the user is starting app, the app has to show a list of available data sets from the ./data folder of the repository.
- - When the user is running the free lunch function via the app, the pipeline must preprocess the selected data prior to the traning of the modell.
- - When the pipeline gets data, it has to remove all missing values.
- - When the pipeline gets data, it has to scale the data.
- - When the data finishes the preprocessing via the pipeline, different models should be used to be trained for later comparison of the models.
+  - The frunch_infinity application must be compatible with the turbofan dataset.
+  - If the user is starting app, the app has to show a list of available data sets from the ./data folder of the repository.
+  - When the user is running the free lunch function via the app, the pipeline must preprocess the selected data prior to the traning of the modell.
+  - When the pipeline gets data, it has to remove all missing values.
+  - When the pipeline gets data, it has to scale the data.
+  - When the data finishes the preprocessing via the pipeline, different models should be used to be trained for later comparison of the models.
 
 - Technologisch
 
