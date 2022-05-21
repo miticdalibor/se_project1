@@ -43,6 +43,16 @@ The goal of the project: Frunch_Infinity is, to develope an Auto-ML application 
 - Requirements for activities
 
 
+## Reflection stage 1
+In stage 1 the requirements have been defined for this project using the SOPHISten rules. Based on the requirements the development of following work packages has started:
+- dev-container has been created
+- pipeline for preprocessing of the data based on the turbofan dataset 
+  - pipeline selects a sensor as output and performs preprocessing on the input features
+- CI/CD pipeline has been created
+- unit tests have been created for the pipeline testing
+- web-app / UI via streamlit started and postponed for stage 2
+- model development has been started using pycaret 
+
 
 
 
