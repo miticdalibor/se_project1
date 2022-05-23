@@ -1,6 +1,5 @@
 stages:
   - test
-  - deploy
 
 before_script:
   - echo "INSTALLING DEPENDENCIES:" 
@@ -17,16 +16,16 @@ test-job:
     reports:
       junit: report.xml
 
-deploy-job:
-  stage: deploy
-  script:
-    - echo "Deploying application..."
-    - echo "Application successfully deployed."
-
 pages:
   script:
     - echo "DOCUMENTATION"
-    - poetry run pdoc src --html -o docs --force
+    - poetry run pdoc src --html -o public
+  needs: []
+  artifacts:
+    paths:
+      - public
+
+
     
   needs: []
   artifacts:
