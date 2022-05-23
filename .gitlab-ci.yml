@@ -24,10 +24,3 @@ pages:
   artifacts:
     paths:
       - public
-
-
-    
-  needs: []
-  artifacts:
-    paths:
-      - docs
