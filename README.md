@@ -24,12 +24,16 @@ The goal of the project: Frunch_Infinity is, to develope an Auto-ML application 
 
 ## Requirements
 - Functional:
-  - The frunch_infinity application must be compatible with the turbofan dataset.
-  - If the user is starting app, the app has to show a list of available data sets from the ./data folder of the repository.
-  - When the user is running the free lunch function via the app, the pipeline must preprocess the selected data prior to the traning of the modell.
-  - When the pipeline gets data, it has to remove all missing values.
-  - When the pipeline gets data, it has to scale the data.
-  - When the data finishes the preprocessing via the pipeline, different models should be used to be trained for later comparison of the models.
+  - When the Turbofan dataset is imported within the Streamlit app, the application must fully recognize all variables and values of the dataset
+  - When the user accesses the application, a choice of available datasets is presented on the user interface
+  - If a selection of different datasets is provided in the app, the corresponding dataset must be imported in the data folder of the Frunch      Infinity Gitlab repository
+  - When the user runs the "Free Lunch" function (Auto Machine Learning process) within the application, the pipeline must be able to prepare the selected dataset for model training
+  - When the selected dataset is passed to the pipeline, the pipeline has to be able to remove missing values
+  - When the selected dataset is passed to the pipeline, the pipeline must be capable of scaling the relevant features
+  - Once the pipeline has preprocessed the selected data set, several statistical models should be trained on the data to make the training results comparable
+  - When the training of the models is completed, a table with the model results must be displayed within the user interface
+  - If errors occur while running the Frunch function, the errors should be visible on the app's interface to facilitate the debugging for app-developers
+
 
 - Technological
 
