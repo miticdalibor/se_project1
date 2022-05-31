@@ -1,8 +1,14 @@
 import pandas as pd
 from hydra.utils import to_absolute_path as abspath
 from sklearn.compose import ColumnTransformer
-from pipeline import num_pipe, cat_pipe
+from os.path import exists
 
+import hydra
+from omegaconf import DictConfig
+from hydra.utils import to_absolute_path as abspath
+
+from pipeline import num_pipe, cat_pipe
+from src.utils import logger, log_time
 
 def process_data(raw_path, cat_idx, target_idx):
     """Function to process the data
@@ -13,7 +19,13 @@ def process_data(raw_path, cat_idx, target_idx):
     assert isinstance(target_idx, int), "Target index must be of type int"
 
     raw_path = abspath(raw_path)
-    print(f"Process data using {raw_path}")
+    
+    logger.info("Process data using {raw_path}")
+
+    file_exists = exists(raw_path)
+    if not file_exists:
+        logger.error("{path_to_file} does not exist")
+        raise FileNotFoundError()
 
     data = pd.read_csv(raw_path, sep=' ', header=None)
 
@@ -53,9 +65,25 @@ def process_data(raw_path, cat_idx, target_idx):
     )
 
     X_processed = preprocessor.fit_transform(X)
+    X_processed_df = pd.DataFrame(X_processed,columns=X.columns[:25])
+    df = pd.concat([X_processed_df, y], axis=1)
+    
+    return df
+    
 
-    return pd.DataFrame(X_processed, columns=X.columns[:25]), y
+@hydra.main(version_base=None, config_path="../config", config_name='main')
+def run(config: DictConfig): 
+    processed_data = abspath(config.processed.path)
 
+    df = process_data(
+        config.raw.path,
+        config.process.cat_index,
+        config.process.target_index
+    )
 
-if __name__ == '__main__':
-    process_data(raw_path, cat_idx, target_idx)
+    df.to_feather(processed_data) # write preprocessed input dataframe for modelling later
+
+    return df
+
+if __name__ == "__main__":
+    run()
