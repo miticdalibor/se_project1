@@ -1,2 +1,7 @@
-cat_index: 5
-target_index: 8
+target_feature: "sensor_4"
+cat_features:
+  - 'unit_number'
+  - 'cycles'
+  - 'operational_setting_1'
+  - 'operational_setting_2'
+  - 'operational_setting_3'

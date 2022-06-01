@@ -31,8 +31,7 @@ class RemoveColumn:
 cat_pipe = Pipeline(steps=[
     ('remove_cat', RemoveColumn()),
     ('impute_cat', SimpleImputer(strategy='constant', fill_value=999)),
-    ('encoder_cat', OrdinalEncoder()) # does not work well? 
-    
+    ('encoder_cat', OrdinalEncoder()) # does not work well?
 ])
 
 num_pipe = Pipeline(steps=[

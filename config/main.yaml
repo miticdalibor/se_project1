@@ -4,7 +4,7 @@ defaults:
   - _self_
 
 raw:
-  dir: data/raw/
+  dir: data/raw
   name: train_FD001.txt
   path: ${raw.dir}/${raw.name}
 
@@ -13,12 +13,12 @@ processed:
   name: input_processed.feather
   path: ${processed.dir}/${processed.name}
 
-final:
-  dir: data/final/
+result:
+  dir: data/final
   name: results.feather
-  path: ${final.dir}/${final.name}
+  path: ${result.dir}/${result.name}
 
 models:
-  dir: models/
+  dir: models
   name: models.pickle
   path: ${models.dir}/${models.name}
