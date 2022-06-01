@@ -4,12 +4,12 @@ Module logging
 import logging
 from time import time
 
-logging.basicConfig(filename="example.log", level=logging.DEBUG)
+logging.basicConfig(filename="app.log", level=logging.DEBUG)
 # create logger with 'spam_application'
 logger = logging.getLogger("frunch_infinity")
 logger.setLevel(logging.DEBUG)
 # create file handler which logs even debug messages
-fh = logging.FileHandler("example.log")
+fh = logging.FileHandler("app.log")
 fh.setLevel(logging.DEBUG)
 logger.addHandler(fh)
 print("start logger")

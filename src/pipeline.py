@@ -39,21 +39,3 @@ num_pipe = Pipeline(steps=[
     ('impute_num', SimpleImputer(strategy='constant', fill_value=0)),
     ('scaling', MinMaxScaler())
 ])
-
-
-def get_num_features(SEL_NUM_FEATURES, df):
-    SEL_NUM_FEATURES_PREP = []
-    for i in SEL_NUM_FEATURES:
-        if i in df.columns:
-            SEL_NUM_FEATURES_PREP.append(i)
-
-    return SEL_NUM_FEATURES_PREP
-
-
-def get_cat_features(SEL_CAT_FEATURES, df):
-    SEL_CAT_FEATURES_PREP = []
-    for i in SEL_CAT_FEATURES:
-        if i in df.columns:
-            SEL_CAT_FEATURES_PREP.append(i)
-
-    return SEL_CAT_FEATURES_PREP

@@ -12,11 +12,14 @@ from utils import logger, log_time
 
 # @todo: Fix column selection
 @log_time
-def train_models(path_to_file, columns):
+def train_models(config):
     """Training pycaret regression models"""
 
-    assert "target_feature" in columns, "config must contain target column"
-    assert "cat_features" in columns, "config must contain list of categorical columns"
+    assert "target_feature" in config.process, "config must contain target column"
+    assert "cat_features" in config.process, "config must contain list of categorical columns"
+
+    columns = config.process
+    path_to_file = abspath(config.processed.path)
 
     file_exists = exists(path_to_file)
 
@@ -25,6 +28,10 @@ def train_models(path_to_file, columns):
         raise FileNotFoundError()
 
     data = pd.read_feather(path_to_file)
+
+    assert columns.target_feature in data.columns, "target column must be in dataframe columns"
+    for col in columns.cat_features:
+        assert col in data.columns, "categorical column must be in dataframe columns"
 
     num_features = [col for col in data.columns if col not in columns.cat_features + [columns.target_feature]]
     cat_features = [col for col in columns.cat_features]
@@ -52,8 +59,7 @@ def run(config: DictConfig):
     result_path = abspath(config.result.path)
 
     models, result = train_models(
-        config.processed.path,
-        config.process
+        config
     )
 
     models.to_pickle(model_path)

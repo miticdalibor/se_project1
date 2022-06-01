@@ -1,5 +1,7 @@
 import pandas as pd
 import pytest
+from hydra import initialize, compose
+
 
 from src.process import process_data
 from src.pipeline import RemoveColumn
@@ -7,8 +9,11 @@ from src.pipeline import RemoveColumn
 
 def test_input_shape():
     """Test shape of input data"""
-    res = process_data("data/raw/train_FD001.txt", 5, 8)
-    assert res.shape == (20631,26)
+    with initialize(version_base=None, config_path="../config"):
+        # config is relative to a module
+        cfg = compose(config_name="main")
+        res = process_data(cfg)
+        assert res.shape == (20631,26)
 
 
 def test_column_remove():
@@ -21,11 +26,8 @@ def test_column_remove():
     
 
 def test_file_error():
-    with pytest.raises(FileNotFoundError) as exc_info:   
-        res = process_data("data/raw/file_not_there.txt", 5, 8)
-
-
-def test_assert_cat_error():
-    with pytest.raises(AssertionError) as exc_info:   
-        res = process_data("data/raw/train_FD001.txt", "test", 8)
-    assert str(exc_info.value) == "Category index must be of type int"
+    with pytest.raises(FileNotFoundError) as exc_info:
+        with initialize(version_base=None, config_path="../config"):
+            # config is relative to a module
+            cfg = compose(config_name="main", overrides=["raw.path=file_not_exists.txt"])
+            res = process_data(cfg)

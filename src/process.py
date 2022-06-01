@@ -10,14 +10,17 @@ from hydra.utils import to_absolute_path as abspath
 from pipeline import num_pipe, cat_pipe
 from utils import logger, log_time
 
-def process_data(raw_path, process):
+def process_data(config):
     """Function to process the data
     Requires configuration file
     """
-    assert "target_feature" in process, "config must contain target column"
-    assert "cat_features" in process, "config must contain list of categorical columns"
 
-    raw_path = abspath(raw_path)
+    assert "target_feature" in config.process, "config must contain target column"
+    assert "cat_features" in config.process, "config must contain list of categorical columns"
+
+    raw_path = abspath(config.raw.path)
+    columns = config.process
+
     
     logger.info(f"Process data using {raw_path}")
 
@@ -30,18 +33,18 @@ def process_data(raw_path, process):
 
     sensor_headers = [f'sensor_{x}' for x in range(1, 24)]
     # Combine column headers
-    column_headers = process.cat_features + sensor_headers
+    column_headers = columns.cat_features + sensor_headers
 
     # Assign the headers
     data.columns = column_headers
 
     # Separate in X and y
-    X = data.drop(process.target_feature, axis=1)
-    y = data[process.target_feature]
+    X = data.drop(columns.target_feature, axis=1)
+    y = data[columns.target_feature]
 
     # user input variables
-    num_features = [col for col in X.columns if col not in process.cat_features]
-    cat_features = [col for col in process.cat_features]
+    num_features = [col for col in X.columns if col not in columns.cat_features]
+    cat_features = [col for col in columns.cat_features]
 
     # questions: 
     # what to do with the cycle time?
@@ -66,8 +69,7 @@ def process_data(raw_path, process):
 def run(config: DictConfig): 
     processed_data = abspath(config.processed.path)
     df = process_data(
-        config.raw.path,
-        config.process
+        config
     )
 
     df.to_feather(processed_data) # write preprocessed input dataframe for modelling later
