@@ -1,25 +1,19 @@
 import pandas as pd
+import pytest
+from hydra import initialize, compose
+
+
 from src.process import process_data
 from src.pipeline import RemoveColumn
-
-def test_input_output():
-    """Test if input and output are splitted"""
-    res = process_data("data/raw/train_FD001.txt", 5, 8)
-    print(res[0].shape)
-    print(res[1].shape)
-    assert len(res) == 2
 
 
 def test_input_shape():
     """Test shape of input data"""
-    res = process_data("data/raw/train_FD001.txt", 5, 8)
-    assert res[0].shape == (20631,25)
-
-
-def test_output_shape():
-    """Test shape of output data"""
-    res = process_data("data/raw/train_FD001.txt", 5, 8)
-    assert res[1].shape == (20631,)
+    with initialize(version_base=None, config_path="../config"):
+        # config is relative to a module
+        cfg = compose(config_name="main")
+        res = process_data(cfg)
+        assert res.shape == (20631,26)
 
 
 def test_column_remove():
@@ -30,3 +24,10 @@ def test_column_remove():
     data_removed = remover.fit_transform(data)
     assert data_removed.shape[1] == 26
     
+
+def test_file_error():
+    with pytest.raises(FileNotFoundError) as exc_info:
+        with initialize(version_base=None, config_path="../config"):
+            # config is relative to a module
+            cfg = compose(config_name="main", overrides=["raw.path=file_not_exists.txt"])
+            res = process_data(cfg)
