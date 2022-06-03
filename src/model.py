@@ -18,4 +18,9 @@ setup = pyreg.setup(
 
 model = pyreg.compare_models()
 # pyreg.evaluate_model(model)
-print(model)
+
+model_output = pyreg.pull()
+
+# pyreg.evaluate_model(model)
+
+print(model_output)
