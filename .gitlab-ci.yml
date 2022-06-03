@@ -3,6 +3,7 @@ stages:
 
 before_script:
   - echo "INSTALLING DEPENDENCIES:" 
+  image: python:3.8.13
   - pip install poetry
   - poetry install
 
