@@ -3,7 +3,6 @@ stages:
 
 before_script:
   - echo "INSTALLING DEPENDENCIES:" 
-   image: python:3.8.13
   - pip install poetry
   - poetry install
 
@@ -21,6 +20,7 @@ test-job:
       junit: report.xml
 
 pages:
+  image: python:3.8.13
   tags:
     - gpu
   script:
