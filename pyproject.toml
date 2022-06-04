@@ -8,6 +8,7 @@ authors = ["Kainz, Mayr, Mitic"]
 python = "^3.8"
 pycaret = "^2.3.10"
 pandas = "^1.4.2"
+streamlit = "^1.10.0"
 Hydra = "^2.5"
 hydra-core = "^1.1.1"
 
