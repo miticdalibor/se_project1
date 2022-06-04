@@ -62,9 +62,9 @@ def run(config: DictConfig):
         config
     )
 
-    models.to_pickle(model_path)
-    logger.info(f"All Models saved to {model_path}")
-    result.to_feather(result_path)
+    # models.to_pickle(model_path)
+    # logger.info(f"All Models saved to {model_path}")
+    result.reset_index().to_feather(result_path)
     logger.info(f"All Results saved to {result_path}")
     return result
 
