@@ -66,7 +66,6 @@ Also, our CI/CD Pipeline was not ready at the implementation. Therefore, our fir
 Working together in person or sync the progress in online meetings is really benefitial for the overall progress. It helped ou team to refocus, improve our code and refine our requirements. Having daily standups in agile development enviroments makes sense, yet, besides working full time, it is not possible for our team to connect on a daily basis. Having a common understanding of objectives and the code is the key to project success and good software is the result of good teamwork - everyone writes their own code and how to write an "if" statement can be googled but how to work in a team is best learned by doing. We are happy with our progress in sprint 1 and know what to focus on in sprint 2.
 
 ## Sprint 1 Backlog
-
 ![](pics/Backlog_Sprint_1.png)
 
 
@@ -79,17 +78,16 @@ After the release of V0.1 the following workpackages have been defined to work o
 
 As with the process in stage 1, we kept our weekly meetings to check-in our updates, discuss any challenges and support each other. The dockerfile has been created using the course material and the dependencies for the build stage have been reduced to the needed amount. At the beginning of the stage 2 sprint you get overwhelmed with the amount of frameworks and tools that exists and can be used for our project. It was difficult to understand how the tools are dependent from each other and when to use which tool. Retrospectively, to understand the tools and when to use them, you must use them. One additional learning was also to keep the branches clean. We used at one point an old branch and spent a lot of time for debugging. We saw that we were using an old branch, because it was named similar to the new one. Here, it is important to keep the branches clean and the names should follow a defined convention to keep them consistent. With streamlit it was very simple to create the web-app for Frunch-Infinity, as it is very user friendly. At the end we also updated the repo structure. Here, the models and notebooks folder have been deleted, as there are not used within our project. The models folder is normally used to store the trained model after training it on a dataset. As the goal of Frunch-Infinity is to have a simple way to train basic regression models on a given dataset it creates each time a new model, which will not be saved. Therefore, also the models folder from the cookiecutter template is not needed. 
 
+## Sprint 2 Backlog
+![](pics/Backlog_Sprint_2.png)
 
 ## Tools used in this project
 * [Poetry](https://towardsdatascience.com/how-to-effortlessly-publish-your-python-package-to-pypi-using-poetry-44b305362f9f): Dependency management - [article](https://towardsdatascience.com/how-to-effortlessly-publish-your-python-package-to-pypi-using-poetry-44b305362f9f)
 * [hydra](https://hydra.cc/): Manage configuration files - [article](https://towardsdatascience.com/introduction-to-hydra-cc-a-powerful-framework-to-configure-your-data-science-projects-ed65713a53c6)
 * [pre-commit plugins](https://pre-commit.com/): Automate code reviewing formatting  - [article](https://towardsdatascience.com/4-pre-commit-plugins-to-automate-code-reviewing-and-formatting-in-python-c80c6d2e9f5?sk=2388804fb174d667ee5b680be22b8b1f)
 * [pdoc](https://github.com/pdoc3/pdoc): Automatically create an API documentation for your project
-
-
-## Sprint 2 Backlog
-
-![](pics/Backlog_Sprint_2.png)
+* [streamlit](https://streamlit.io): Streamlit turns data scripts into shareable web apps in minutes. 
+* [pycaret] (https://pycaret.gitbook.io/docs/): An open-source, low-code machine learning library in Python
 
 
 ## Project structure
