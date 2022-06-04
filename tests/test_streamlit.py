@@ -12,7 +12,7 @@ import requests
 def test_streamlit():
     url = "http://0.0.0.0:8501"
     proc = subprocess.Popen(["streamlit", "run", "ui.py"])
-    time.sleep(10)
+    time.sleep(25)
     try:
         test_response = requests.get(url)
         assert test_response.status_code == 200
