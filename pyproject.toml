@@ -17,6 +17,7 @@ flake8 = "^4.0.1"
 pyarrow = "^8.0.0"
 pylint = "^2.13.9"
 unittest = "^0.0"
+streamlit = "^1.10.0"
 
 
 [tool.poetry.dev-dependencies]
