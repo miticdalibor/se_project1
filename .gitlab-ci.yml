@@ -33,7 +33,7 @@ pages:
     paths:
       - public
 
-build image:
+build:
   stage: build
   tags: 
     - gpu
