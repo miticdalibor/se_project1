@@ -10,4 +10,6 @@ RUN poetry install --no-dev
 
 ADD . .
 
-ENTRYPOINT [ "streamlit", "run", "streamlit_pizza.py"]
+# ENTRYPOINT [ "streamlit", "run", "ui.py"]
+
+CMD streamlit run ui.py
