@@ -52,20 +52,7 @@ def train_models(config):
     result = pyreg.pull()
     logger.info("All Models trained")
 
-    # add results to data warehouse
-    local_session = Session(bind=engine)
-    for i in range(0,len(result)):
-        new_result = PredResults(index=result.loc[i,'index'],
-                                Model=result.loc[i,'Model'],
-                                MAE=result.loc[i,'MAE'],
-                                MSE=result.loc[i,'MSE'],
-                                RMSE=result.loc[i,'RMSE'],
-                                R2=result.loc[i,'R2'],
-                                RMSLE=result.loc[i,'RMSLE'],
-                                MAPE=result.loc[i,'MAPE'],
-                                time_in_seconds=result.loc[i,'TT (Sec)'])
-        local_session.add(new_result)
-        local_session.commit()
+   
 
     return model, result
 
@@ -82,12 +69,28 @@ def run(config: DictConfig):
     # models.to_pickle(model_path)
     # logger.info(f"All Models saved to {model_path}")
     result.reset_index().to_feather(result_path)
-
     logger.info(f"All Results saved to {result_path}")
+
+     # add results to data warehouse
+    local_session = Session(bind=engine)
+    result1 = pd.read_feather(result_path)
+    for i in range(0,len(result1)):
+        new_result = PredResults(index=result1.loc[i,'index'],
+                                Model=result1.loc[i,'Model'],
+                                MAE=result1.loc[i,'MAE'],
+                                MSE=result1.loc[i,'MSE'],
+                                RMSE=result1.loc[i,'RMSE'],
+                                R2=result1.loc[i,'R2'],
+                                RMSLE=result1.loc[i,'RMSLE'],
+                                MAPE=result1.loc[i,'MAPE'],
+                                time_in_seconds=result1.loc[i,'TT (Sec)'])
+        local_session.add(new_result)
+        local_session.commit()
+        logger.info(f"Row {i} added to data warehouse")
+    logger.info("All Results saved to Data Warehouse")
+
     return result
 
 
 if __name__ == "__main__":
     run()
-
-
