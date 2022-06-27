@@ -1,3 +1,4 @@
+from threading import local
 import pandas as pd
 from pycaret import regression as pyreg
 from os.path import exists
@@ -9,7 +10,7 @@ from hydra.utils import to_absolute_path as abspath
 import pipeline as pipe
 from utils import logger, log_time
 
-
+from dwh import PredResults, Session, engine
 # @todo: Fix column selection
 @log_time
 def train_models(config):
@@ -50,11 +51,27 @@ def train_models(config):
     model = pyreg.compare_models()
     result = pyreg.pull()
     logger.info("All Models trained")
+
+    # add results to data warehouse
+    local_session = Session(bind=engine)
+    for i in range(0,len(result)):
+        new_result = PredResults(index=result.loc[i,'index'],
+                                Model=result.loc[i,'Model'],
+                                MAE=result.loc[i,'MAE'],
+                                MSE=result.loc[i,'MSE'],
+                                RMSE=result.loc[i,'RMSE'],
+                                R2=result.loc[i,'R2'],
+                                RMSLE=result.loc[i,'RMSLE'],
+                                MAPE=result.loc[i,'MAPE'],
+                                time_in_seconds=result.loc[i,'TT (Sec)'])
+        local_session.add(new_result)
+        local_session.commit()
+
     return model, result
 
 
 @hydra.main(version_base=None, config_path="../config", config_name='main')
-def run(config: DictConfig): 
+def run(config: DictConfig):
     model_path = abspath(config.models.path)
     result_path = abspath(config.result.path)
 
@@ -65,9 +82,14 @@ def run(config: DictConfig):
     # models.to_pickle(model_path)
     # logger.info(f"All Models saved to {model_path}")
     result.reset_index().to_feather(result_path)
+    # @TODO: write here result into datawarehouse
+    
+
     logger.info(f"All Results saved to {result_path}")
     return result
 
 
 if __name__ == "__main__":
     run()
+
+

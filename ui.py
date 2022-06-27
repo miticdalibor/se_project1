@@ -10,6 +10,9 @@ from PIL import Image
 import time
 import src
 
+from src.dwh import Features, Session, engine
+
+local_sesion = Session(bind=engine)
 # import pycaret output
 
 df = pd.read_feather('data/final/results.feather')
@@ -20,6 +23,14 @@ st.header('Get Predictions out of your Data')
 
 data = st.sidebar.selectbox("Dataset: ",
 					['Turbofan'])
+
+# show all available features 
+feat_list = []
+features_dwh = local_sesion.query(Features).all() # query all features from dwh
+for feat in features_dwh:
+    feat_list.append(feat.name)   
+features = st.sidebar.selectbox("Features in Dataset: ", feat_list)
+
 
 # task definition
 task = st.sidebar.radio("Task: ", ('Regression', 'Classification'))

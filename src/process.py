@@ -10,6 +10,8 @@ from hydra.utils import to_absolute_path as abspath
 from pipeline import num_pipe, cat_pipe
 from utils import logger, log_time
 
+from dwh import Features, Session, engine
+
 def process_data(config):
     """Function to process the data
     Requires configuration file
@@ -38,6 +40,14 @@ def process_data(config):
     # Assign the headers
     data.columns = column_headers
 
+    # add column names (features) to data warehouse for UI
+    local_session = Session(bind=engine)
+    for i in column_headers:
+        new_feature = Features(name=i)
+        local_session.add(new_feature)
+        local_session.commit()
+
+
     # Separate in X and y
     X = data.drop(columns.target_feature, axis=1)
     y = data[columns.target_feature]
@@ -46,8 +56,6 @@ def process_data(config):
     num_features = [col for col in X.columns if col not in columns.cat_features]
     cat_features = [col for col in columns.cat_features]
 
-    # questions: 
-    # what to do with the cycle time?
     preprocessor = ColumnTransformer(
         transformers=[
             ('cat', cat_pipe, cat_features),
@@ -71,7 +79,7 @@ def run(config: DictConfig):
     df = process_data(
         config
     )
-
+    
     df.to_feather(processed_data) # write preprocessed input dataframe for modelling later
     logger.info(f"Processed data saved to {processed_data}")
 
