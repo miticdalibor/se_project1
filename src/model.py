@@ -82,8 +82,6 @@ def run(config: DictConfig):
     # models.to_pickle(model_path)
     # logger.info(f"All Models saved to {model_path}")
     result.reset_index().to_feather(result_path)
-    # @TODO: write here result into datawarehouse
-    
 
     logger.info(f"All Results saved to {result_path}")
     return result
