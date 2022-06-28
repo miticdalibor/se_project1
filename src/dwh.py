@@ -41,3 +41,5 @@ class PredResults(Base):
     RMSLE = Column(Float)
     MAPE = Column(Float)
     time_in_seconds = Column(Float)
+
+Base.metadata.create_all(engine)  # this code line creates the DB with the specified metadata
