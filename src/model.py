@@ -73,17 +73,16 @@ def run(config: DictConfig):
 
      # add results to data warehouse
     local_session = Session(bind=engine)
-    result1 = result.reset_index() # pd.read_feather(result_path)
-    for i in range(0,len(result1)):
-        new_result = PredResults(index=result1.loc[i,'index'],
-                                Model=result1.loc[i,'Model'],
-                                MAE=result1.loc[i,'MAE'],
-                                MSE=result1.loc[i,'MSE'],
-                                RMSE=result1.loc[i,'RMSE'],
-                                R2=result1.loc[i,'R2'],
-                                RMSLE=result1.loc[i,'RMSLE'],
-                                MAPE=result1.loc[i,'MAPE'],
-                                time_in_seconds=result1.loc[i,'TT (Sec)'])
+    for i in range(0,len(result.reset_index())):
+        new_result = PredResults(index=result.reset_index().loc[i,'index'],
+                                Model=result.reset_index().loc[i,'Model'],
+                                MAE=result.reset_index().loc[i,'MAE'],
+                                MSE=result.reset_index().loc[i,'MSE'],
+                                RMSE=result.reset_index().loc[i,'RMSE'],
+                                R2=result.reset_index().loc[i,'R2'],
+                                RMSLE=result.reset_index().loc[i,'RMSLE'],
+                                MAPE=result.reset_index().loc[i,'MAPE'],
+                                time_in_seconds=result.reset_index().loc[i,'TT (Sec)'])
         local_session.add(new_result)
         local_session.commit()
         logger.info(f"Row {i} added to data warehouse")

@@ -1,3 +1,4 @@
+import logging
 import pandas as pd
 from hydra.utils import to_absolute_path as abspath
 from sklearn.compose import ColumnTransformer
@@ -42,6 +43,10 @@ def process_data(config):
 
     # add column names (features) to data warehouse for UI
     local_session = Session(bind=engine)
+    # @TODO: delete all entries in DB 
+    local_session.query(Features).delete()
+    local_session.commit()
+    logger.info(f"All Features in DB deleted")
     for i in column_headers:
         new_feature = Features(name=i)
         local_session.add(new_feature)
