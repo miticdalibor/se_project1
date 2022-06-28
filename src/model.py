@@ -73,7 +73,7 @@ def run(config: DictConfig):
 
      # add results to data warehouse
     local_session = Session(bind=engine)
-    result1 = pd.read_feather(result_path)
+    result1 = result.reset_index() # pd.read_feather(result_path)
     for i in range(0,len(result1)):
         new_result = PredResults(index=result1.loc[i,'index'],
                                 Model=result1.loc[i,'Model'],
