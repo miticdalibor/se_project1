@@ -1,3 +1,4 @@
+import logging
 import pandas as pd
 from hydra.utils import to_absolute_path as abspath
 from sklearn.compose import ColumnTransformer
@@ -10,17 +11,19 @@ from hydra.utils import to_absolute_path as abspath
 from pipeline import num_pipe, cat_pipe
 from utils import logger, log_time
 
+from dwh import Features, Session, engine
+
+
 def process_data(config):
     """Function to process the data
     Requires configuration file
     """
-
-    assert "target_feature" in config.process, "config must contain target column"
+    local_session = Session(bind=engine)
+    #assert "target_feature" in config.process, "config must contain target column"
     assert "cat_features" in config.process, "config must contain list of categorical columns"
 
     raw_path = abspath(config.raw.path)
     columns = config.process
-
     
     logger.info(f"Process data using {raw_path}")
 
@@ -37,17 +40,15 @@ def process_data(config):
 
     # Assign the headers
     data.columns = column_headers
-
     # Separate in X and y
-    X = data.drop(columns.target_feature, axis=1)
-    y = data[columns.target_feature]
-
+    sel_target = local_session.query(Features).filter(Features.targfeat==1).first() # use selected target feature via UI
+    X = data.drop(sel_target.name, axis=1) # delete selected target feature via UI
+    y = data[sel_target.name] # use selected target feature via UI
+    
     # user input variables
     num_features = [col for col in X.columns if col not in columns.cat_features]
     cat_features = [col for col in columns.cat_features]
 
-    # questions: 
-    # what to do with the cycle time?
     preprocessor = ColumnTransformer(
         transformers=[
             ('cat', cat_pipe, cat_features),
@@ -59,9 +60,8 @@ def process_data(config):
     X_processed_df = pd.DataFrame(X_processed,columns=X.columns[:25])
     df = pd.concat([X_processed_df, y], axis=1)
 
-    logger.info(f"Data successfully processed")
+    logger.info("Data successfully processed")
 
-    
     return df
     
 
@@ -71,7 +71,7 @@ def run(config: DictConfig):
     df = process_data(
         config
     )
-
+    
     df.to_feather(processed_data) # write preprocessed input dataframe for modelling later
     logger.info(f"Processed data saved to {processed_data}")
 
