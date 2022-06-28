@@ -14,7 +14,6 @@ from utils import logger, log_time
 from dwh import Features, Session, engine
 
 
-
 def process_data(config):
     """Function to process the data
     Requires configuration file
@@ -25,7 +24,6 @@ def process_data(config):
 
     raw_path = abspath(config.raw.path)
     columns = config.process
-
     
     logger.info(f"Process data using {raw_path}")
 
@@ -47,9 +45,6 @@ def process_data(config):
     X = data.drop(sel_target.name, axis=1) # delete selected target feature via UI
     y = data[sel_target.name] # use selected target feature via UI
     
-    # add column names (features) to data warehouse for UI
-
-
     # user input variables
     num_features = [col for col in X.columns if col not in columns.cat_features]
     cat_features = [col for col in columns.cat_features]
