@@ -1,4 +1,4 @@
-# target_feature: "sensor_4"
+target_feature: "sensor_4" # can be deleted, but then also test needs to be adapted
 cat_features:
   - 'unit_number'
   - 'cycles'

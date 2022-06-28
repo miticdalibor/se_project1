@@ -16,7 +16,8 @@ def run(config: DictConfig):
     sensor_headers = [f'sensor_{x}' for x in range(1, 24)]
     column_headers = columns.cat_features + sensor_headers
 
-    for i in column_headers:
+    # add column names (features) to data warehouse for UI
+    for i in column_headers[5:]:
         new_feature = Features(name=i)
         local_session.add(new_feature)
         local_session.commit()
