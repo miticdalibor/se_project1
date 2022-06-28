@@ -10,13 +10,13 @@ from hydra.utils import to_absolute_path as abspath
 import pipeline as pipe
 from utils import logger, log_time
 
-from dwh import PredResults, Session, engine
+from dwh import PredResults, Session, engine, Features  
 # @todo: Fix column selection
 @log_time
 def train_models(config):
     """Training pycaret regression models"""
-
-    assert "target_feature" in config.process, "config must contain target column"
+    local_session = Session(bind=engine)
+    # assert "target_feature" in config.process, "config must contain target column"
     assert "cat_features" in config.process, "config must contain list of categorical columns"
 
     columns = config.process
@@ -29,17 +29,18 @@ def train_models(config):
         raise FileNotFoundError()
 
     data = pd.read_feather(path_to_file)
-
-    assert columns.target_feature in data.columns, "target column must be in dataframe columns"
+    sel_target = local_session.query(Features).filter(Features.targfeat==1).first() # use selected target feature via UI
+    print(sel_target.name)
+    assert sel_target.name in data.columns, "target column must be in dataframe columns"
     for col in columns.cat_features:
         assert col in data.columns, "categorical column must be in dataframe columns"
 
-    num_features = [col for col in data.columns if col not in columns.cat_features + [columns.target_feature]]
+    num_features = [col for col in data.columns if col not in columns.cat_features + [sel_target.name]]
     cat_features = [col for col in columns.cat_features]
 
     setup = pyreg.setup(
         data,
-        target=columns.target_feature,
+        target=sel_target.name,
         numeric_features=num_features,
         categorical_features=cat_features,
         normalize=False,

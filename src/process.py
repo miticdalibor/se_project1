@@ -13,12 +13,14 @@ from utils import logger, log_time
 
 from dwh import Features, Session, engine
 
+
+
 def process_data(config):
     """Function to process the data
     Requires configuration file
     """
-
-    assert "target_feature" in config.process, "config must contain target column"
+    local_session = Session(bind=engine)
+    #assert "target_feature" in config.process, "config must contain target column"
     assert "cat_features" in config.process, "config must contain list of categorical columns"
 
     raw_path = abspath(config.raw.path)
@@ -40,22 +42,13 @@ def process_data(config):
 
     # Assign the headers
     data.columns = column_headers
-
-    # add column names (features) to data warehouse for UI
-    local_session = Session(bind=engine)
-    # @TODO: delete all entries in DB 
-    local_session.query(Features).delete()
-    local_session.commit()
-    logger.info(f"All Features in DB deleted")
-    for i in column_headers:
-        new_feature = Features(name=i)
-        local_session.add(new_feature)
-        local_session.commit()
-
-
     # Separate in X and y
-    X = data.drop(columns.target_feature, axis=1)
-    y = data[columns.target_feature]
+    sel_target = local_session.query(Features).filter(Features.targfeat==1).first() # use selected target feature via UI
+    X = data.drop(sel_target.name, axis=1) # delete selected target feature via UI
+    y = data[sel_target.name] # use selected target feature via UI
+    
+    # add column names (features) to data warehouse for UI
+
 
     # user input variables
     num_features = [col for col in X.columns if col not in columns.cat_features]
@@ -72,9 +65,8 @@ def process_data(config):
     X_processed_df = pd.DataFrame(X_processed,columns=X.columns[:25])
     df = pd.concat([X_processed_df, y], axis=1)
 
-    logger.info(f"Data successfully processed")
+    logger.info("Data successfully processed")
 
-    
     return df
     
 
