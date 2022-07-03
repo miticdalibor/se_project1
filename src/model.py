@@ -51,7 +51,6 @@ def train_models(config):
 
     model = pyreg.compare_models()
     result = pyreg.pull()
-    model_prediction = pyreg.predict_model(model)
     logger.info("All Models trained")
 
    
@@ -63,8 +62,6 @@ def train_models(config):
 def run(config: DictConfig):
     model_path = abspath(config.models.path)
     result_path = abspath(config.result.path)
-    pred_path = abspath(config.prediction.path)
-
     models, result = train_models(
         config
     )
@@ -72,7 +69,6 @@ def run(config: DictConfig):
     # models.to_pickle(model_path)
     # logger.info(f"All Models saved to {model_path}")
     result.reset_index().to_feather(result_path)
-    model_prediction.reset_index().to_feather(prediction_path)
     logger.info(f"All Results saved to {result_path}")
 
      # add results to data warehouse

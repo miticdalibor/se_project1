@@ -18,12 +18,6 @@ result:
   name: results.feather
   path: ${result.dir}/${result.name}
 
-prediction:
-  dir: data/final
-  name: prediction.feather
-  path: ${result.dir}/${model_prediction.name}
-
-
 models:
   dir: models
   name: models.pickle
