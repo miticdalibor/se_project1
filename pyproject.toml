@@ -12,6 +12,7 @@ streamlit = "^1.10.0"
 Hydra = "^2.5"
 hydra-core = "^1.1.1"
 SQLAlchemy = "^1.4.39"
+stqdm = "^0.0.4"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
