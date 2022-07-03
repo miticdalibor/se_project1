@@ -2894,6 +2894,18 @@ develop = ["cython (>=0.29.26)"]
 docs = ["sphinx", "nbconvert", "jupyter-client", "ipykernel", "matplotlib", "nbformat", "numpydoc", "pandas-datareader"]
 
 [[package]]
+name = "stqdm"
+version = "0.0.4"
+description = "Easy progress bar for streamlit based on the awesome streamlit.progress and tqdm"
+category = "main"
+optional = false
+python-versions = ">=3.6,<4.0"
+
+[package.dependencies]
+streamlit = ">=0.66"
+tqdm = ">=4.50"
+
+[[package]]
 name = "streamlit"
 version = "1.10.0"
 description = "The fastest way to build data apps in Python"
@@ -3412,7 +3424,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "19a2ddcfbdd243d26ab21d4ada75459bb519c9b14bf9d2f6a65ce1a0530dc112"
+content-hash = "edc367d77e3c0cb67f886415b2361b9193b7eeaf40159eb8c74e0c36e52e0c2b"
 
 [metadata.files]
 aiohttp = [
@@ -5522,6 +5534,10 @@ statsmodels = [
     {file = "statsmodels-0.13.2-cp39-cp39-win32.whl", hash = "sha256:461c82ab2265fa8457b96afc23ef3ca19f42eb070436e0241b57e58a38863901"},
     {file = "statsmodels-0.13.2-cp39-cp39-win_amd64.whl", hash = "sha256:39daab5a8a9332c8ea83d6464d065080c9ba65f236daf6a64aa18f64ef776fad"},
     {file = "statsmodels-0.13.2.tar.gz", hash = "sha256:77dc292c9939c036a476f1770f9d08976b05437daa229928da73231147cde7d4"},
+]
+stqdm = [
+    {file = "stqdm-0.0.4-py3-none-any.whl", hash = "sha256:9e369d38abdc0a8f14b577fd1ae7a45aa047a4ee5afc8fa102845498b8ceb868"},
+    {file = "stqdm-0.0.4.tar.gz", hash = "sha256:8f83e0d2cd441a4f24ecd1fdaaea437626387b4aa45218af1cde558f8e6746c0"},
 ]
 streamlit = [
     {file = "streamlit-1.10.0-py2.py3-none-any.whl", hash = "sha256:4febd37144a62177e583d6970ab50f351a2bfd4eb112cf19e38c25b12246a4db"},

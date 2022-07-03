@@ -2,11 +2,14 @@
 import modules
 """
 import sys
+import timeit
+from click import progressbar
 sys.path.append('./src')
 import streamlit as st
 import pandas as pd
 from PIL import Image
-
+from stqdm import stqdm
+from sklearn import metrics
 import time
 import src
 
@@ -17,9 +20,15 @@ import src.dwh_init
 local_session = Session(bind=engine) # create local session for accessing the dB
 x = 0
 
+st.set_page_config(
+    page_title="Auto-ML Dashboard by Frunch Infinity",
+    page_icon="✅",
+    layout="wide",
+)
+
 df = pd.read_feather('data/final/results.feather')
 
-st.header('Get Predictions out of your Data')
+st.header('Generate model output of your Data')
 
 # sidebar
 
@@ -49,17 +58,17 @@ if (task == 'Regression'):
     st.sidebar.success("Regression")
 else:
     x+=1
-    st.sidebar.success("Classification")
+    st.sidebar.success("Classification is currently not available in our MVP Application")
 
 pred = st.sidebar.button("Latest training results!")
 
 rtrain = st.sidebar.button("Retrain Dataset")
 
 
-img = Image.open("pics/nodes.jpg")
-st.image(img, width=750)
+#img = Image.open("pics/nodes.jpg")
+#st.image(img, width=750)
 
-st.write("Your dataset is: ", data)
+#st.write("Your dataset is: ", data)
 
 # Loading spinner
 
@@ -68,12 +77,19 @@ if pred:
     #with st.spinner('Predicting...'):
     #    time.sleep(5)
     st.dataframe(df)
-    st.success('Done!')
+    
 
 if rtrain:
-    x+=1
-    src.run()
-    st.success('Done!')
+        with st.spinner("we hope you have brought some time :)"):
+            for i in stqdm(range(0,1)):
+                start_time = timeit.default_timer()
+                src.run()
+                elapsed = timeit.default_timer() - start_time
+                st.success('Press "Latest Training Results" to see the training output')
+         
 
 if x == 0:
     src.dwh_init.run() # only initialize DB when application starts
+
+
+#src.run()
