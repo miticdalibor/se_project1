@@ -11,7 +11,8 @@ def test_model_file_error():
             res = train_models(cfg)
 
 
-# @TODO: Check as target_feature does not exist in config
+# removed test because target feature doesn't exist in config.yaml and its passed from ui.py via datawarehouse to backend
+
 #def test_assert_target_error():
 #    with pytest.raises(AssertionError) as exc_info:   
 #        with initialize(version_base=None, config_path="../config"):
