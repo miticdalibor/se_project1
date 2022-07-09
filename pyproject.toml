@@ -13,7 +13,7 @@ Hydra = "^2.5"
 hydra-core = "^1.1.1"
 SQLAlchemy = "^1.4.39"
 stqdm = "^0.0.4"
-llvmlite = { version = "^0.38.1", python = ">=3.8,<3.11" }
+llvmlite = { version = "^0.32.1", python = ">=3.8,<3.11" }
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
