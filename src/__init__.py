@@ -1,8 +1,8 @@
 import sys
 sys.path.append('./src')
 
-import process
-import model
+import src.process
+import src.model
 
 def run():
     
