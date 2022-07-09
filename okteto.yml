@@ -1,0 +1,8 @@
+name: frunchinfinity
+command: streamlit run ui.py
+environment:
+  - FLASK_ENV=development
+sync:
+  - .:/src
+forward:
+  - 8080:8080
