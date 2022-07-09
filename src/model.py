@@ -11,7 +11,10 @@ import pipeline as pipe
 from utils import logger, log_time
 
 from dwh import PredResults, Session, engine, Features  
-# @todo: Fix column selection
+import streamlit as st
+
+
+@st.cache(hash_funcs={"run": lambda _: None})
 @log_time
 def train_models(config):
     """Training pycaret regression models"""
