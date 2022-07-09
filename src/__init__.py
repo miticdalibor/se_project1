@@ -5,7 +5,7 @@ import src.process as process
 import src.model as model
 import streamlit as st
 
-@st.cache(hash_funcs={"MyUnhashableClass": lambda _: None})
+@st.cache(hash_funcs={"run": lambda _: None})
 def run():
     
     process.run()
