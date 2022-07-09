@@ -1413,11 +1413,11 @@ dask = ["dask[array] (>=2.0.0)", "dask[dataframe] (>=2.0.0)", "dask[distributed]
 
 [[package]]
 name = "llvmlite"
-version = "0.33.0"
+version = "0.38.1"
 description = "lightweight wrapper around basic LLVM functionality"
 category = "main"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7,<3.11"
 
 [[package]]
 name = "mailchecker"
@@ -3464,7 +3464,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "3be3af8ce5a6aaa503ac4c7e90973148688f802177b997bf5516d2ab22f20c0f"
+content-hash = "597d87894b6f5352ff90e79cef2213e56afefcb6f2e1cc62ecb47eac307ef909"
 
 [metadata.files]
 aiohttp = []
