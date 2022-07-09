@@ -12,4 +12,4 @@ ADD . /src
 # ENTRYPOINT [ "streamlit", "run", "ui.py"]
 EXPOSE 8080
 
-CMD streamlit run ui.py
+CMD poetry run streamlit run ui.py
