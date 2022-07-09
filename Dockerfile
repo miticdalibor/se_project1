@@ -2,6 +2,7 @@ FROM python:3.8-bullseye
 
 WORKDIR /src
 RUN pip install poetry
+RUN pip install llvmlite
 ADD pyproject.toml pyproject.toml
 RUN poetry install --no-dev
 #RUN poetry export -f requirements.txt --output requirements.txt --without-hashes
