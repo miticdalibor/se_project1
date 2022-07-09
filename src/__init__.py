@@ -3,7 +3,9 @@ sys.path.append('./src')
 
 import src.process as process
 import src.model as model
+import streamlit as st
 
+@st.cache
 def run():
     
     process.run()
